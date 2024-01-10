@@ -11,7 +11,6 @@ import com.ctre.phoenix6.configs.Slot1Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.VoltageOut;
 import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ControlModeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -149,5 +148,7 @@ public class WCPSwerveModule implements SwerveModule {
     // TODO: set voltage. Method changed in Phoenix 6: https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/feature-replacements-guide.html#integral-zone-and-max-integral-accumulator
     // m_driveMotor.set(ControlModeValue.VelocityVoltage, state.speedMetersPerSecond * kMeterPerSToTick);
     // m_turnMotor.set(ControlModeValue.PositionVoltage, setpointDegrees * kDegToAnalog + m_encoderZero);
+
+
   }
 }
