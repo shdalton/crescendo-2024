@@ -21,7 +21,12 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import frc.robot.subsystems.SwerveModule;
 
-/** Add your docs here. */
+/* ######################################
+  CHANGES FROM PHOENIX 5 TO PHOENIX 6:
+  https://pro.docs.ctr-electronics.co/en/latest/docs/migration/migration-guide/feature-replacements-guide.html#integral-zone-and-max-integral-accumulator
+  ######################################
+*/
+
 public class WCPSwerveModule implements SwerveModule {
 
   // Subsystem parameters
@@ -60,11 +65,11 @@ public class WCPSwerveModule implements SwerveModule {
     Slot0Configs.kP = kDriveKp;
     Slot0Configs.kI = kDriveKi;
     Slot0Configs.kD = kDriveKd;
-    Slot0Configs.kV = kDriveKv;
+    // Slot0Configs.kV = kDriveKv;
 
     m_driveMotor.getConfigurator().apply(Slot0Configs, 0.05);
 
-    m_driveMotor.config_IntegralZone(0, kDriveIZone);
+    // m_driveMotor.config_IntegralZone(0, kDriveIZone); // Unnecessary in Phoenix 6 https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/feature-replacements-guide.html#integral-zone-and-max-integral-accumulator
 
     final VoltageOut m_request= new VoltageOut(0);
     m_driveMotor.setControl(m_request.withOutput(kNominalVolt));
@@ -85,7 +90,7 @@ public class WCPSwerveModule implements SwerveModule {
     Slot1Configs.kD = kTurnKd;
 
      m_turnMotor.getConfigurator().apply(Slot1Configs, 0.05);
-    m_turnMotor.config_IntegralZone(0, kTurnIZone);
+    // m_turnMotor.config_IntegralZone(0, kTurnIZone); // Unnecessary in Phoenix 6 https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/feature-replacements-guide.html#integral-zone-and-max-integral-accumulator
 
     m_configZero = config.m_analogZero;
 
@@ -141,7 +146,8 @@ public class WCPSwerveModule implements SwerveModule {
     var rotationDelta = state.angle.minus(this.getRotation());
     var setpointDegrees = getEncoderDegrees() + rotationDelta.getDegrees();
 
-    m_driveMotor.set(ControlModeValue.VelocityVoltage, state.speedMetersPerSecond * kMeterPerSToTick);
-    m_turnMotor.set(ControlModeValue.PositionVoltage, setpointDegrees * kDegToAnalog + m_encoderZero);
+    // TODO: set voltage. Method changed in Phoenix 6: https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/feature-replacements-guide.html#integral-zone-and-max-integral-accumulator
+    // m_driveMotor.set(ControlModeValue.VelocityVoltage, state.speedMetersPerSecond * kMeterPerSToTick);
+    // m_turnMotor.set(ControlModeValue.PositionVoltage, setpointDegrees * kDegToAnalog + m_encoderZero);
   }
 }
